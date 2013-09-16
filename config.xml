@@ -21,27 +21,23 @@
   <Process type="SaveToTxt">
     <Rule>NotImportantTerm</Rule>
     <Path>D:\Log\</Path>
-    <FileName>NotImportantTerm</FileName>
-    <ShowGroup>true</ShowGroup>
-    <Templete>
-      &lt;TermExclude term="$$Name$$" contextPattern="*">
-        &lt;TargetFiles>
-          &lt;TargetFile filePattern="*" folderPattern="*" />
-        &lt;/TargetFiles>
-      &lt;/TermExclude>
-    </Templete>
-  </Process>
-  <Process type="SaveToTxt">
-    <Rule>Important</Rule>
-    <Path>D:\Log\</Path>
-    <FileName>Important</FileName>
-    <Templete>
-      &lt;TermExclude term="$$Term$$" contextPattern="$$Context$$">
-        &lt;TargetFiles>
-          &lt;TargetFile filePattern="*" folderPattern="*" />
-        &lt;/TargetFiles>
-     &lt;/TermExclude>
-    </Templete>
+    <FileName>Exclude</FileName>
+    <Content>
+      <Item type="list" rule="Important" orderby="Term">
+        <TermExclude term="$$Term$$" contextPattern="$$Context$$">
+          <TargetFiles>
+            <TargetFile filePattern="*" folderPattern="*" />
+          </TargetFiles>
+        </TermExclude>
+      </Item>
+      <Item type="list" rule="NotImportantTerm">
+        <TermExclude term="$$Name$$" contextPattern="*">
+          <TargetFiles>
+            <TargetFile filePattern="*" folderPattern="*" />
+          </TargetFiles>
+        </TermExclude>
+      </Item>
+    </Content>
   </Process>
 </Reporter>
 
