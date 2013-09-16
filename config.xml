@@ -1,0 +1,54 @@
+﻿
+<Reporter>
+  <Source type="TextFileSourceSource" name="all" source="Source">
+    <log>
+      <field name="Term" pattern="(?&lt;=term = &quot;).+?(?=&quot;)" />
+      <field name="Severity" pattern="(?&lt;=severity = )\d(?=,)" />
+      <field name="Context" pattern="(?&lt;=context = &quot;).+?(?=&quot;)" />
+      <!--<field name="Term" pattern="^.*?(?=\()" />
+      <field name="Context" pattern="(?&lt;=: ).+?" />-->
+    </log>
+  </Source>
+  
+  <Rule name="Important" type="single" maxcount="-1">
+    <Filter fieldName="Severity" op="=" value="1"/>
+  </Rule>
+  <Rule name="NotImportant" type="group" maxcount="-1">
+    <Filter fieldName="Severity" op="=" value="2"/>
+    <Rule name="NotImportantTerm" type="autogroup" fieldName ="Term" maxcount="-1"/>
+  </Rule>
+  
+  <Process type="SaveToTxt">
+    <Rule>NotImportantTerm</Rule>
+    <Path>D:\Log\</Path>
+    <FileName>NotImportantTerm</FileName>
+    <ShowGroup>true</ShowGroup>
+    <Templete>
+      &lt;TermExclude term="$$Name$$" contextPattern="*">
+        &lt;TargetFiles>
+          &lt;TargetFile filePattern="*" folderPattern="*" />
+        &lt;/TargetFiles>
+      &lt;/TermExclude>
+    </Templete>
+  </Process>
+  <Process type="SaveToTxt">
+    <Rule>Important</Rule>
+    <Path>D:\Log\</Path>
+    <FileName>Important</FileName>
+    <Templete>
+      &lt;TermExclude term="$$Term$$" contextPattern="$$Context$$">
+        &lt;TargetFiles>
+          &lt;TargetFile filePattern="*" folderPattern="*" />
+        &lt;/TargetFiles>
+     &lt;/TermExclude>
+    </Templete>
+  </Process>
+</Reporter>
+
+<!--
+< &lt;
+> &gt;
+& &amp;
+' &apos;
+" &quot;
+-->
