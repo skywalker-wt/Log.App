@@ -1,41 +1,22 @@
 ﻿
 <Reporter>
-  <Source type="TextFileSourceSource" name="all" source="Source">
-    <log>
-      <field name="Term" pattern="(?&lt;=term = &quot;).+?(?=&quot;)" />
-      <field name="Severity" pattern="(?&lt;=severity = )\d(?=,)" />
-      <field name="Context" pattern="(?&lt;=context = &quot;).+?(?=&quot;)" />
-      <!--<field name="Term" pattern="^.*?(?=\()" />
-      <field name="Context" pattern="(?&lt;=: ).+?" />-->
-    </log>
+  <Source type="WebSource" name="all" url="http://meri.cloudapp.net/api/tasks/">
+    <Parser type="json">
+      <field name="Cancelled" />
+      <field name="CreateTime" />
+      <field name="Id" />
+      <field name="Name">HDStressRegularRun</field>
+    </Parser>
   </Source>
   
-  <Rule name="Important" type="single" maxcount="-1">
-    <Filter fieldName="Severity" op="=" value="1"/>
-  </Rule>
-  <Rule name="NotImportant" type="group" maxcount="-1">
-    <Filter fieldName="Severity" op="=" value="2"/>
-    <Rule name="NotImportantTerm" type="autogroup" fieldName ="Term" maxcount="-1"/>
-  </Rule>
+  <Rule name="HDStressRegularRun" type="single" maxcount="-1" />
   
   <Process type="SaveToTxt">
-    <Rule>NotImportantTerm</Rule>
     <Path>D:\Log\</Path>
-    <FileName>Exclude</FileName>
+    <FileName>MeriTask</FileName>
     <Content>
-      <Item type="list" rule="Important" orderby="Term">
-        <TermExclude term="$$Term$$" contextPattern="$$Context$$">
-          <TargetFiles>
-            <TargetFile filePattern="*" folderPattern="*" />
-          </TargetFiles>
-        </TermExclude>
-      </Item>
-      <Item type="list" rule="NotImportantTerm">
-        <TermExclude term="$$Name$$" contextPattern="*">
-          <TargetFiles>
-            <TargetFile filePattern="*" folderPattern="*" />
-          </TargetFiles>
-        </TermExclude>
+      <Item type="list" rule="HDStressRegularRun" orderby="CreateTime" desc="true">
+        $$Name$$, $$Id$$, $$CreateTime$$
       </Item>
     </Content>
   </Process>

@@ -1,0 +1,50 @@
+﻿
+<Reporter>
+  <Source type="FileSource" name="all" source="SourcePoliCheck">
+    <Parser type="txt">
+      <field name="Term" >(?&lt;=term = ").+?(?=")</field>
+      <field name="Severity" >(?&lt;=severity = )\d(?=,)</field>
+      <field name="Context">(?&lt;=context = ").+?(?=")</field>
+      <!--<field name="Term" pattern="^.*?(?=\()" />
+      <field name="Context" pattern="(?&lt;=: ).+?" />-->
+    </Parser>
+  </Source>
+  
+  <Rule name="Important" type="single" maxcount="-1">
+    <Filter fieldName="Severity" op="=" value="1"/>
+  </Rule>
+  <Rule name="NotImportant" type="group" maxcount="-1">
+    <Filter fieldName="Severity" op="=" value="2"/>
+    <Rule name="NotImportantTerm" type="autogroup" fieldName ="Term" maxcount="-1"/>
+  </Rule>
+  
+  <Process type="SaveToTxt">
+    <Rule>NotImportantTerm</Rule>
+    <Path>D:\Log\</Path>
+    <FileName>Exclude</FileName>
+    <Content>
+      <Item type="list" rule="Important" orderby="Term">
+        <TermExclude term="$$Term$$" contextPattern="$$Context$$">
+          <TargetFiles>
+            <TargetFile filePattern="*" folderPattern="*" />
+          </TargetFiles>
+        </TermExclude>
+      </Item>
+      <Item type="list" rule="NotImportantTerm">
+        <TermExclude term="$$Name$$" contextPattern="*">
+          <TargetFiles>
+            <TargetFile filePattern="*" folderPattern="*" />
+          </TargetFiles>
+        </TermExclude>
+      </Item>
+    </Content>
+  </Process>
+</Reporter>
+
+<!--
+< &lt;
+> &gt;
+& &amp;
+' &apos;
+" &quot;
+-->
