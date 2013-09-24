@@ -1,9 +1,7 @@
 ﻿
 <Reporter>
-  <Source type="WebSource" name="all" url="http://meri.cloudapp.net/api/tasks/">
+  <Source type="WebSource" name="all" url="https://meri.cloudapp.net/api/tasks/">
     <Parser type="json">
-      <field name="Cancelled" />
-      <field name="CreateTime" />
       <field name="Id" />
       <field name="Name">HDStressRegularRun</field>
     </Parser>
