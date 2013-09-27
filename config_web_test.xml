@@ -1,0 +1,25 @@
+﻿<Reporter>
+  <Source type="WebSource" name="all" url="http://stackoverflow.com/questions/18647724/xpath-processor-with-custom-html-parser">
+    <Parser type="xml" path="//div[@class='post-text']">
+      <field name="Content"/>
+    </Parser>
+  </Source>
+
+  <Rule name="HDStressRegularRun" type="single" maxcount="-1" />
+
+  <Process type="SaveToTxt">
+    <Path>D:\Log\</Path>
+    <FileName>Hrefs</FileName>
+    <Content>
+      <Item type="list" rule="HDStressRegularRun" orderby="CreateTime" desc="true">$$Content$$</Item>
+    </Content>
+  </Process>
+</Reporter>
+
+<!--
+< &lt;
+> &gt;
+& &amp;
+' &apos;
+" &quot;
+-->

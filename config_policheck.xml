@@ -10,10 +10,10 @@
     </Parser>
   </Source>
   
-  <Rule name="Important" type="single" maxcount="-1">
+  <Rule name="Important" type="single" maxcount="-1" target="all">
     <Filter fieldName="Severity" op="=" value="1"/>
   </Rule>
-  <Rule name="NotImportant" type="group" maxcount="-1">
+  <Rule name="NotImportant" type="group" maxcount="-1" target="all">
     <Filter fieldName="Severity" op="=" value="2"/>
     <Rule name="NotImportantTerm" type="autogroup" fieldName ="Term" maxcount="-1"/>
   </Rule>

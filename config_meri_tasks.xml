@@ -3,7 +3,6 @@
   <Source type="WebSource" name="all" url="https://meri.cloudapp.net/api/tasks/">
     <Parser type="json">
       <field name="Id" />
-      <field name="CreateTime" />
       <field name="Name">HDStressRegularRun</field>
     </Parser>
   </Source>
@@ -14,7 +13,9 @@
     <Path>D:\Log\</Path>
     <FileName>MeriTasks</FileName>
     <Content>
-      <Item type="list" rule="HDStressRegularRun" orderby="CreateTime" desc="true">$$Name$$, $$Id$$, $$CreateTime$$</Item>
+      <Item type="list" rule="HDStressRegularRun" orderby="CreateTime" desc="true">
+        $$Name$$, $$Id$$, $$CreateTime$$
+      </Item>
     </Content>
   </Process>
 </Reporter>

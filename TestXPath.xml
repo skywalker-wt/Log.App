@@ -3,15 +3,11 @@
     
   </b>
   <b a="111">
-    <d a="ss">
+    <d a="true">
       bbbbb
     </d>
+    <d a="ss">
+      bbbbbdd
+    </d>
   </b>
-  <c>
-    <b>
-      <d>
-        aaaa
-      </d>
-    </b>
-  </c>
 </a>

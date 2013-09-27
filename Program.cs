@@ -12,14 +12,6 @@ namespace Log.App
     {
         static void Main(string[] args)
         {
-            string xPathFile = "TestXPath.xml";
-            XmlDocument xP = new XmlDocument();
-            xP.Load(xPathFile);
-            string path = "//b/d";
-            XmlNodeList elements = xP.SelectNodes(path);
-
-            
-
             string configFile = "config.xml";
 
             if (args.Length > 0) configFile = args[0];
